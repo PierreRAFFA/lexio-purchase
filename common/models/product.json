@@ -1,0 +1,44 @@
+{
+  "name": "product",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "creationDate": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "store": {
+      "type": "string",
+      "required": true
+    },
+    "storeProductId": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "required": true
+    },
+    "balance": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "token": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    },
+    "price": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,60 @@
+{
+  "name": "purchase",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "creationDate": {
+      "type": "date",
+      "defaultFn": "now"
+    },
+    "payload": {
+      "type": "string",
+      "required": true
+    },
+    "transactionId": {
+      "type": "string",
+      "required": true
+    },
+    "productId": {
+      "type": "string",
+      "required": true
+    },
+    "store": {
+      "type": "string",
+      "required": true
+    },
+    "sandbox": {
+      "type": "boolean",
+      "required": false,
+      "default": false
+    },
+    "storeResponse": {
+      "type": "object",
+      "required": true
+    },
+    "update": {
+      "type": "object",
+      "required": true
+    },
+    "userId": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "required": true,
+      "enum": ["succeed", "failed"]
+    },
+    "error": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

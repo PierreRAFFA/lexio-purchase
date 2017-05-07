@@ -18,10 +18,6 @@
       "type": "string",
       "required": true
     },
-    "status": {
-      "type": "string",
-      "required": true
-    },
     "balance": {
       "type": "number",
       "required": true,

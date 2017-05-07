@@ -16,7 +16,7 @@ docker push pierreraffa/wordz-purchase:latest
 docker pull pierreraffa/wordz-purchase:latest  
   
 ###Create containers
-docker run --name wordz-purchase --link wordz-mongo:mongo -d pierreraffa/wordz-purchase:latest  
+docker run --name wordz-purchase -p 3020:3010 --link wordz-mongo:mongo -d pierreraffa/wordz-purchase:latest  
   
 ###Connect to the containers:  
 docker exec -it wordz-purchase /bin/bash  

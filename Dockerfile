@@ -9,8 +9,8 @@ COPY package.json /var/www/wordz-purchase
 RUN npm install
 
 # Bundle app source
-COPY . /var/www/wordz-api
+COPY . /var/www/wordz-purchase
 
-EXPOSE 3010
+EXPOSE 3020
 
 CMD [ "npm", "run", "start" ]

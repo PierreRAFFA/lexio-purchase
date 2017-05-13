@@ -2,11 +2,11 @@
   "db": {
     "name": "db",
     "connector": "mongodb",
-    "host": "127.0.0.1",
+    "host": "mongohost",
     "port": 27017,
     "url": "",
-    "database": "wordz-purchase-dev",
-    "user": "",
-    "password": ""
+    "database": "purchase",
+    "user": "api",
+    "password": "password"
   }
 }

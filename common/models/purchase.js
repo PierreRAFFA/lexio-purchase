@@ -44,6 +44,7 @@ module.exports = function (Purchase) {
 
         // 2. check if the product exists
         .then(() => {
+          console.log('productId:' + productId);
           return Product.find({ where: { storeProductId: productId } }).then( products => {
             if (products.length === 0) {
               throw new Error(`No product found with the id: ${productId}`);

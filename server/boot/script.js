@@ -2,10 +2,15 @@
 module.exports = function(app) {
   const Product = app.models.Product;
 
+  app.remotes().phases.addBefore('invoke', 'options-from-request').use(function (ctx, next) {
+    ctx.args.options.accessToken = ctx.req.user.accessToken;
+    ctx.args.options.currentUser = ctx.req.user;
+    next();
+  });
+
+  return;
+
   Product.destroyAll({}, function(err, count) {
-    // console.log(err);
-    // console.log(count);
-    // if (count === 0) {
       Product.create([
         {store: 'apple', storeProductId: 'com.wordz.game.coin1', balance: '8', token: '0', price: 0.99},
         {store: 'apple', storeProductId: 'com.wordz.game.coin2', balance: '16', token: '0', price: 1.99},
@@ -16,6 +21,5 @@ module.exports = function(app) {
         if (err) throw err;
         console.log('Created products:', products);
       });
-    // }
   });
 };

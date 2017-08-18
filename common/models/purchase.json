@@ -10,7 +10,11 @@
       "type": "date",
       "defaultFn": "now"
     },
-    "payload": {
+    "receipt": {
+      "type": "object",
+      "required": true
+    },
+    "store": {
       "type": "string",
       "required": true
     },
@@ -19,10 +23,6 @@
       "required": true
     },
     "productId": {
-      "type": "string",
-      "required": true
-    },
-    "store": {
       "type": "string",
       "required": true
     },

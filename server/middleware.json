@@ -31,7 +31,14 @@
     }
   },
   "session": {},
-  "auth": {},
+  "auth": {
+    "./middlewares/isAuthenticated": {
+      "paths": [
+        "/api/*"
+      ],
+      "params": {}
+    }
+  },
   "parse": {},
   "routes": {
     "loopback#rest": {

@@ -151,7 +151,7 @@ module.exports = function (Purchase) {
         console.log('balance:' + user.balance);
         console.log('new balance:' + user.balance + product.balance);
         const options = {
-          url: `http://wordz-authentication:3010/api/users/${user.id}?access_token=${accessToken}`,
+          url: `http://lexio-authentication:3010/api/users/${user.id}?access_token=${accessToken}`,
           form: {
             balance: user.balance + product.balance,
           }

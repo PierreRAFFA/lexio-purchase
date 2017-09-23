@@ -1,5 +1,5 @@
 {
-  "name": "wordz-purchase",
+  "name": "LexioPurchase",
   "version": "0.1.0",
   "main": "server/server.js",
   "engines": {
@@ -36,5 +36,5 @@
     "url": ""
   },
   "license": "UNLICENSED",
-  "description": "wordz-purchase"
+  "description": "Lexio Purchase"
 }

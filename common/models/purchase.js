@@ -182,10 +182,10 @@ module.exports = function (Purchase) {
 
     // determine which endpoint to use for verifying the receipt
     let endpoint = null;
-    if (sandbox) {
-      endpoint = config.appleReceiptEndpointSandbox;
-    } else {
+    if (process.env.NODE_ENV === 'production') {
       endpoint = config.appleReceiptEndpoint;
+    } else {
+      endpoint = config.appleReceiptEndpointSandbox;
     }
 
     const formFields = {

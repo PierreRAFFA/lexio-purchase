@@ -32,7 +32,7 @@
   },
   "session": {},
   "auth": {
-    "./middlewares/isAuthenticated": {
+    "./middlewares/accessControl": {
       "paths": [
         "/api/*"
       ],

@@ -44,8 +44,6 @@ module.exports = function (Purchase) {
     const { receipt, productId, sandbox } = purchase;
     const {Store: store, TransactionID: transactionId, Payload: payload} = receipt;
 
-    console.log(receipt)
-    console.log(productId)
     if (!receipt || !store || !transactionId) {
       error = new Error("The receipt is not valid");
       error.statusCode = 400;
@@ -67,7 +65,6 @@ module.exports = function (Purchase) {
 
       // 2. check if the product exists
       .then(() => {
-        console.log('productId:' + productId);
         return Product.find({ where: { storeProductId: productId } }).then( products => {
           if (products.length === 0) {
             throw new Error(`No product found with the id: ${productId}`);
@@ -91,14 +88,29 @@ module.exports = function (Purchase) {
 
       // 3. validate with Apple
       .then(() => {
-        return verifyAppleReceipt(payload, sandbox)
+        process.env.NODE_ENV = 'production';
+        return verifyAppleReceipt(payload, process.env.NODE_ENV !== 'production')
         .then(storeSuccessResponse => {
           purchase.storeResponse = storeSuccessResponse;
           return storeSuccessResponse;
         })
         .catch(storeFailureResponse => {
-          purchase.storeResponse = storeFailureResponse;
-          throw new Error("The receipt has not been validated by Apple");
+
+          // in production, the sandbox is false but may need to be true if the app comes from TestFlight
+          if(process.env.NODE_ENV === 'production') {
+            return verifyAppleReceipt(payload, true)
+              .then(storeSuccessResponse => {
+                purchase.storeResponse = storeSuccessResponse;
+                return storeSuccessResponse;
+              })
+              .catch(storeFailureResponse => {
+                purchase.storeResponse = storeFailureResponse;
+                throw new Error("The receipt has not been validated by Apple");
+              })
+          }else{
+            purchase.storeResponse = storeFailureResponse;
+            throw new Error("The receipt has not been validated by Apple");
+          }
         });
       })
 
@@ -182,10 +194,10 @@ module.exports = function (Purchase) {
 
     // determine which endpoint to use for verifying the receipt
     let endpoint = null;
-    if (process.env.NODE_ENV === 'production') {
-      endpoint = config.appleReceiptEndpoint;
-    } else {
+    if (sandbox) {
       endpoint = config.appleReceiptEndpointSandbox;
+    } else {
+      endpoint = config.appleReceiptEndpoint;
     }
 
     const formFields = {
@@ -219,10 +231,6 @@ module.exports = function (Purchase) {
    */
   function createPurchaseFromAppleReceipt(storeResponse, userId){
 
-    console.log('==============================');
-    console.log('createPurchaseFromAppleReceipt');
-    console.log(userId);
-    console.dir(storeResponse);
     if (storeResponse.receipt
       && storeResponse.receipt.in_app
       && storeResponse.receipt.in_app.length) {
@@ -237,8 +245,6 @@ module.exports = function (Purchase) {
       purchase.userId = userId;
       purchase.store = 'apple';
 
-      console.dir(purchase);
-      console.log('==============================');
       return purchase.save();
     }
   }
